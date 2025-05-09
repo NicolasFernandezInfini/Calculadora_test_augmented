@@ -1,3 +1,11 @@
+/**
+ * Calculator Component Styles
+ *
+ * This file contains all the styles for the Calculator component.
+ * It defines the layout, colors, and interactive elements of the calculator.
+ */
+
+/* Main calculator container */
 .calculator {
   width: 300px;
   background-color: #f0f0f0;
@@ -6,6 +14,7 @@
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
+/* Display area for input and results */
 .display {
   background-color: white;
   height: 50px;
@@ -14,39 +23,45 @@
   font-size: 24px;
   text-align: right;
   border-radius: 5px;
-  overflow: hidden;
+  overflow: hidden; /* Prevent overflow of long numbers */
 }
 
+/* Error message styling */
 .error {
   color: red;
   margin-bottom: 10px;
   font-size: 14px;
 }
 
+/* Button grid layout */
 .buttons {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns of equal width */
+  grid-gap: 10px; /* Spacing between buttons */
 }
 
+/* Common button styling */
 button {
   height: 50px;
   font-size: 18px;
   border: none;
   border-radius: 5px;
   background-color: #e0e0e0;
-  cursor: pointer;
+  cursor: pointer; /* Show pointer cursor on hover */
 }
 
+/* Button hover effect */
 button:hover {
   background-color: #d0d0d0;
 }
 
+/* Clear button specific styling */
 .clear {
-  grid-column: span 4;
-  background-color: #ff9999;
+  grid-column: span 4; /* Make the clear button span all 4 columns */
+  background-color: #ff9999; /* Light red background */
 }
 
+/* Clear button hover effect */
 .clear:hover {
-  background-color: #ff7777;
+  background-color: #ff7777; /* Darker red on hover */
 }

@@ -1,18 +1,28 @@
+/**
+ * App Component Styles
+ *
+ * This file contains the styles for the main App component.
+ * It defines the layout and appearance of the application container.
+ */
+
+/* Center align all content in the App */
 .App {
   text-align: center;
 }
 
+/* Main header area styling */
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #282c34; /* Dark background color */
+  min-height: 100vh; /* Full viewport height */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  font-size: calc(10px + 2vmin); /* Responsive font size */
+  color: white; /* White text */
 }
 
+/* Main heading style */
 h1 {
-  margin-bottom: 30px;
+  margin-bottom: 30px; /* Space between heading and calculator */
 }

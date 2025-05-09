@@ -1,10 +1,26 @@
 <!DOCTYPE html>
+<!--
+    Standalone Calculator Application
+
+    This is a self-contained calculator application that runs entirely in the browser.
+    It doesn't require any backend server or additional dependencies.
+
+    Features:
+    - Basic arithmetic operations (+, -, *, /)
+    - Clear button to reset the calculator
+    - Error handling for invalid expressions
+
+    Author: Nicolás Fernández
+    Version: 1.0
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Simple</title>
+    <!-- Inline styles for the calculator -->
     <style>
+        /* Page layout */
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -12,14 +28,16 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #282c34;
+            background-color: #282c34; /* Dark background matching the React app */
             color: white;
         }
-        
+
+        /* Container for the calculator and title */
         .container {
             text-align: center;
         }
-        
+
+        /* Main calculator container */
         .calculator {
             width: 300px;
             background-color: #f0f0f0;
@@ -28,7 +46,8 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             margin: 0 auto;
         }
-        
+
+        /* Display area for input and results */
         .display {
             background-color: white;
             height: 50px;
@@ -40,19 +59,22 @@
             overflow: hidden;
             color: black;
         }
-        
+
+        /* Error message styling */
         .error {
             color: red;
             margin-bottom: 10px;
             font-size: 14px;
         }
-        
+
+        /* Button grid layout */
         .buttons {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-gap: 10px;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns of equal width */
+            grid-gap: 10px; /* Spacing between buttons */
         }
-        
+
+        /* Common button styling */
         button {
             height: 50px;
             font-size: 18px;
@@ -61,79 +83,111 @@
             background-color: #e0e0e0;
             cursor: pointer;
         }
-        
+
+        /* Button hover effect */
         button:hover {
             background-color: #d0d0d0;
         }
-        
+
+        /* Clear button specific styling */
         .clear {
-            grid-column: span 4;
-            background-color: #ff9999;
+            grid-column: span 4; /* Make the clear button span all 4 columns */
+            background-color: #ff9999; /* Light red background */
         }
-        
+
+        /* Clear button hover effect */
         .clear:hover {
-            background-color: #ff7777;
+            background-color: #ff7777; /* Darker red on hover */
         }
     </style>
 </head>
 <body>
+    <!-- Main container -->
     <div class="container">
         <h1>Calculadora Simple</h1>
+        <!-- Calculator widget -->
         <div class="calculator">
+            <!-- Display area for input and results -->
             <div class="display" id="display"></div>
+            <!-- Error message area (only shown when there is an error) -->
             <div class="error" id="error"></div>
+            <!-- Calculator buttons grid -->
             <div class="buttons">
+                <!-- First row -->
                 <button onclick="handleClick('7')">7</button>
                 <button onclick="handleClick('8')">8</button>
                 <button onclick="handleClick('9')">9</button>
                 <button onclick="handleClick('/')">/</button>
-                
+
+                <!-- Second row -->
                 <button onclick="handleClick('4')">4</button>
                 <button onclick="handleClick('5')">5</button>
                 <button onclick="handleClick('6')">6</button>
                 <button onclick="handleClick('*')">*</button>
-                
+
+                <!-- Third row -->
                 <button onclick="handleClick('1')">1</button>
                 <button onclick="handleClick('2')">2</button>
                 <button onclick="handleClick('3')">3</button>
                 <button onclick="handleClick('-')">-</button>
-                
+
+                <!-- Fourth row -->
                 <button onclick="handleClick('0')">0</button>
                 <button onclick="handleClick('.')">.</button>
                 <button onclick="handleClick('=')">=</button>
                 <button onclick="handleClick('+')">+</button>
-                
+
+                <!-- Clear button (spans full width) -->
                 <button class="clear" onclick="handleClick('C')">C</button>
             </div>
         </div>
     </div>
 
+    <!-- JavaScript for calculator functionality -->
     <script>
+        // Variable to store the current display value
         let display = '';
+
+        // Get references to the DOM elements
         const displayElement = document.getElementById('display');
         const errorElement = document.getElementById('error');
 
+        /**
+         * Handles button clicks on the calculator
+         *
+         * @param {string} value - The value of the button clicked (number, operator, or command)
+         */
         function handleClick(value) {
+            // Clear any previous error messages
             errorElement.textContent = '';
-            
+
             if (value === '=') {
+                // If equals button is pressed, calculate the result
                 calculate();
             } else if (value === 'C') {
+                // If clear button is pressed, reset the display
                 display = '';
                 displayElement.textContent = display;
             } else {
+                // Otherwise, append the value to the display
                 display += value;
                 displayElement.textContent = display;
             }
         }
 
+        /**
+         * Calculates the result of the expression in the display
+         * Uses Function constructor instead of eval for slightly better security
+         */
         function calculate() {
             try {
-                // Usar Function en lugar de eval para mayor seguridad
+                // Use Function constructor instead of eval for better security
+                // (though still not completely safe for production)
                 const result = new Function('return ' + display)();
                 display = result.toString();
                 displayElement.textContent = display;
             } catch (err) {
+                // If there's an error in the expression, show an error message
                 errorElement.textContent = 'Error en la expresión';
             }
         }
