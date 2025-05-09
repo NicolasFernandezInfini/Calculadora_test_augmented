@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #282c34;
+            color: white;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        .calculator {
+            width: 300px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin: 0 auto;
+        }
+        
+        .display {
+            background-color: white;
+            height: 50px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 24px;
+            text-align: right;
+            border-radius: 5px;
+            overflow: hidden;
+            color: black;
+        }
+        
+        .error {
+            color: red;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+        
+        button {
+            height: 50px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #d0d0d0;
+        }
+        
+        .clear {
+            grid-column: span 4;
+            background-color: #ff9999;
+        }
+        
+        .clear:hover {
+            background-color: #ff7777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora Simple</h1>
+        <div class="calculator">
+            <div class="display" id="display"></div>
+            <div class="error" id="error"></div>
+            <div class="buttons">
+                <button onclick="handleClick('7')">7</button>
+                <button onclick="handleClick('8')">8</button>
+                <button onclick="handleClick('9')">9</button>
+                <button onclick="handleClick('/')">/</button>
+                
+                <button onclick="handleClick('4')">4</button>
+                <button onclick="handleClick('5')">5</button>
+                <button onclick="handleClick('6')">6</button>
+                <button onclick="handleClick('*')">*</button>
+                
+                <button onclick="handleClick('1')">1</button>
+                <button onclick="handleClick('2')">2</button>
+                <button onclick="handleClick('3')">3</button>
+                <button onclick="handleClick('-')">-</button>
+                
+                <button onclick="handleClick('0')">0</button>
+                <button onclick="handleClick('.')">.</button>
+                <button onclick="handleClick('=')">=</button>
+                <button onclick="handleClick('+')">+</button>
+                
+                <button class="clear" onclick="handleClick('C')">C</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let display = '';
+        const displayElement = document.getElementById('display');
+        const errorElement = document.getElementById('error');
+
+        function handleClick(value) {
+            errorElement.textContent = '';
+            
+            if (value === '=') {
+                calculate();
+            } else if (value === 'C') {
+                display = '';
+                displayElement.textContent = display;
+            } else {
+                display += value;
+                displayElement.textContent = display;
+            }
+        }
+
+        function calculate() {
+            try {
+                // Usar Function en lugar de eval para mayor seguridad
+                const result = new Function('return ' + display)();
+                display = result.toString();
+                displayElement.textContent = display;
+            } catch (err) {
+                errorElement.textContent = 'Error en la expresión';
+            }
+        }
+    </script>
+</body>
+</html>
